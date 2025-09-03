@@ -9,15 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('listens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete(); // guest plays possible
-            $table->nullableMorphs('playable'); 
-            // Song or Episode
-            $table->integer('position_seconds')->default(0); // how far the user reached
-            $table->string('device')->nullable(); // web, mobile, etc.
+            $table->foreignId('user_id')->nullable()->constrained('userss')->nullOnDelete();
+            $table->nullableMorphs('playable'); // playable_type + playable_id
+            $table->integer('position_seconds')->default(0);
+            $table->string('device')->nullable(); // web, mobile
             $table->ipAddress('ip')->nullable();
             $table->timestamp('played_at')->useCurrent();
             $table->timestamps();
@@ -26,10 +25,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('listens');
     }

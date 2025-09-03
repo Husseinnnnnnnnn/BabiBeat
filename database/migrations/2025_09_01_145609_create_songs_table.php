@@ -9,26 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
             $table->string('title')->index();
-            $table->integer('duration_seconds')->nullable(); // duration in seconds
+            $table->integer('duration_seconds')->nullable();
             $table->string('genre')->nullable()->index();
-            $table->string('audio_url'); // storage path / CDN URL
+            $table->string('audio_url');
             $table->foreignId('album_id')->nullable()->constrained('albums')->nullOnDelete();
             $table->unsignedBigInteger('plays_count')->default(0);
             $table->unsignedBigInteger('likes_count')->default(0);
             $table->timestamps();
+
             $table->index(['album_id', 'genre']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('songs');
     }

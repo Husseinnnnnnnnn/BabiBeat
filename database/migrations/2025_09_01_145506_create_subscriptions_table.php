@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('type'); // Free, Premium, etc.
+            $table->string('type');                  // Free, Premium...
             $table->decimal('price', 8, 2)->default(0);
             $table->string('billing_cycle')->default('monthly'); // monthly, yearly
             $table->boolean('is_active')->default(true);

@@ -30,6 +30,7 @@ class Userr extends Authenticatable
         return $this->belongsTo(Subscription::class);
     }
 
+
     public function playlists()
     {
         return $this->hasMany(Playlist::class, 'user_id');

@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('episodes', function (Blueprint $table) {
             $table->id();
@@ -20,14 +20,12 @@ return new class extends Migration
             $table->string('audio_url');
             $table->unsignedBigInteger('plays_count')->default(0);
             $table->timestamps();
+
             $table->index(['podcast_id', 'release_date']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('episodes');
     }

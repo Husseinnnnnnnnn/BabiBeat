@@ -9,23 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('playlist_song', function (Blueprint $table) {
             $table->id();
             $table->foreignId('playlist_id')->constrained('playlists')->cascadeOnDelete();
             $table->foreignId('song_id')->constrained('songs')->cascadeOnDelete();
-            $table->unsignedInteger('position')->nullable(); // optional ordering
+            $table->unsignedInteger('position')->nullable();
             $table->timestamps();
 
             $table->unique(['playlist_id', 'song_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('playlist_song');
     }
