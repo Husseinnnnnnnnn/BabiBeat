@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AlbumController;
 use App\Http\Controllers\Api\SongController;
 use App\Http\Controllers\Api\PodcastController;
 use App\Http\Controllers\Api\EpisodeController;
+use App\Http\Controllers\Api\PlaylistController;
 
 //authentication for user
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -43,8 +44,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //episodes
-     Route::apiResource('episodes', EpisodeController::class);
-     Route::delete('/podcasts/{podcast}/episodes/{episode}', [\App\Http\Controllers\Api\EpisodeController::class, 'destroyFromPodcast']);
+    Route::apiResource('episodes', EpisodeController::class);
+    Route::delete('/podcasts/{podcast}/episodes/{episode}', [\App\Http\Controllers\Api\EpisodeController::class, 'destroyFromPodcast']);
+
+
+
+
+     // Playlists (plus add/remove song)
+    Route::apiResource('playlists', PlaylistController::class);
+    Route::post('/playlists/{playlist}/songs/{song}', [PlaylistController::class, 'attachSong']);
+    Route::delete('/playlists/{playlist}/songs/{song}', [PlaylistController::class, 'detachSong']);
 
 
 });
