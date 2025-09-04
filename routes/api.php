@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PodcastController;
 use App\Http\Controllers\Api\EpisodeController;
 use App\Http\Controllers\Api\PlaylistController;
 use App\Http\Controllers\Api\SocialController;   // likes & follows
+use App\Http\Controllers\Api\DownloadController; // downloads
 
 //authentication for user
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -59,6 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+
+
     //both the likes and follows are in the social controller
     // Likes (songs)
     Route::post('/songs/{song}/like',   [SocialController::class, 'likeSong']);
@@ -66,6 +69,19 @@ Route::middleware('auth:sanctum')->group(function () {
     // Follows (users)
     Route::post('/users/{user}/follow',   [SocialController::class, 'followUser']);
     Route::delete('/users/{user}/follow', [SocialController::class, 'unfollowUser']);
+
+
+
+
+
+
+
+    // Downloads (Song/Episode)
+    Route::post('/downloads/song/{song}',     [DownloadController::class, 'downloadSong']);
+    Route::delete('/downloads/song/{song}',   [DownloadController::class, 'undownloadSong']);
+    Route::post('/downloads/episode/{episode}',   [DownloadController::class, 'downloadEpisode']);
+    Route::delete('/downloads/episode/{episode}', [DownloadController::class, 'undownloadEpisode']);
+
 
 
 });
