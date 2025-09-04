@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\SongController;
 use App\Http\Controllers\Api\PodcastController;
 use App\Http\Controllers\Api\EpisodeController;
 use App\Http\Controllers\Api\PlaylistController;
+use App\Http\Controllers\Api\SocialController;   // likes & follows
 
 //authentication for user
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -54,6 +55,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('playlists', PlaylistController::class);
     Route::post('/playlists/{playlist}/songs/{song}', [PlaylistController::class, 'attachSong']);
     Route::delete('/playlists/{playlist}/songs/{song}', [PlaylistController::class, 'detachSong']);
+
+
+
+
+    //both the likes and follows are in the social controller
+    // Likes (songs)
+    Route::post('/songs/{song}/like',   [SocialController::class, 'likeSong']);
+    Route::delete('/songs/{song}/like', [SocialController::class, 'unlikeSong']);
+    // Follows (users)
+    Route::post('/users/{user}/follow',   [SocialController::class, 'followUser']);
+    Route::delete('/users/{user}/follow', [SocialController::class, 'unfollowUser']);
 
 
 });
