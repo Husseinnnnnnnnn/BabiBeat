@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\AlbumController;
 use App\Http\Controllers\Api\SongController;
 use App\Http\Controllers\Api\PodcastController;
+use App\Http\Controllers\Api\EpisodeController;
 
 //authentication for user
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -39,6 +40,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //podcats
     Route::apiResource('podcasts', PodcastController::class);
+
+
+    //episodes
+     Route::apiResource('episodes', EpisodeController::class);
+     Route::delete('/podcasts/{podcast}/episodes/{episode}', [\App\Http\Controllers\Api\EpisodeController::class, 'destroyFromPodcast']);
+
 
 });
 
