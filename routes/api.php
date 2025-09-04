@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArtistController;
 use App\Http\Controllers\Api\AlbumController;
 use App\Http\Controllers\Api\SongController;
+use App\Http\Controllers\Api\PodcastController;
 
 //authentication for user
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -34,6 +35,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('songs',   SongController::class);
     Route::delete('/albums/{album}/songs/{song}', [\App\Http\Controllers\Api\SongController::class, 'destroyFromAlbum']);
 
+
+
+    //podcats
+    Route::apiResource('podcasts', PodcastController::class);
 
 });
 
